@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: collectd
 #
 # Copyright (C) 2016 Raintank, Inc.
@@ -22,4 +22,4 @@ if node['use_collectd'] && node['collectd']['java_plugins']['cassandra']
   node.set['collectd']['java_plugins']['cassandra']['config']['connection']['Host'] = node.name.sub /\.raintank\.io$/, ''
 end
 
-include_recipe "raintank_base::collectd"
+include_recipe "chef_base::collectd"

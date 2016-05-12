@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: default
 #
 # Copyright (C) 2016 Raintank, Inc.
@@ -17,8 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "raintank_base::default"
-include_recipe "raintank_cassandra::disks"
-include_recipe "raintank_cassandra::install"
-include_recipe "raintank_cassandra::keyspace"
-include_recipe "raintank_cassandra::snapshotter"
+include_recipe "chef_base::default"
+include_recipe "chef_cassandra::disks"
+include_recipe "chef_cassandra::install"
+include_recipe "chef_cassandra::keyspace"
+include_recipe "chef_cassandra::snapshotter"

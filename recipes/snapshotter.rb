@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: snapshotter
 #
 # Copyright (C) 2016 Raintank, Inc.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-unless node[:raintank_base][:is_img_build]
+unless node[:chef_base][:is_img_build]
   s3creds = Chef::EncryptedDataBagItem.load(:s3credentials, node.chef_environment).to_hash
   directory "/var/lib/cassandra/.ssh" do
     owner "cassandra"
@@ -49,7 +49,7 @@ cron "cassandra_clear_snapshots" do
   minute '0'
   hour '5'
   user 'root'
-  mailto node['raintank_cassandra']['cron_mailto']
+  mailto node['chef_cassandra']['cron_mailto']
   command %Q(/usr/bin/nice -n 15 /usr/bin/find /var/lib/cassandra/data/*/*/snapshots -type f -mtime +8 -delete)
 end
 
@@ -58,6 +58,6 @@ cron "cassandra_clear_backups" do
   minute '10'
   hour '5'
   user 'root'
-  mailto node['raintank_cassandra']['cron_mailto']
+  mailto node['chef_cassandra']['cron_mailto']
   command %Q(/usr/bin/nice -n 15 /usr/bin/find /var/lib/cassandra/data/*/*/backups -type f -mtime +8 -delete)
 end

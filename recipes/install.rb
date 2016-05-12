@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: install
 #
 # Copyright (C) 2016 Raintank, Inc.
@@ -45,9 +45,9 @@ service 'cassandra' do
 end
 
 seeds = if Chef::Config[:solo]
-    node[:raintank_cassandra][:seeds].join(",") # todo: search for
+    node[:chef_cassandra][:seeds].join(",") # todo: search for
   else
-    s = search("node", node['raintank_cassandra']['search']).map { |c| c.fqdn } || node[:raintank_cassandra][:seeds]
+    s = search("node", node['chef_cassandra']['search']).map { |c| c.fqdn } || node[:chef_cassandra][:seeds]
     s.join(",")
   end
 
@@ -60,15 +60,15 @@ template "/etc/cassandra/cassandra.yaml" do
   group "root"
   action :create
   variables({
-    :cluster_name => node['raintank_cassandra']['cluster_name'],
-    :num_tokens => node['raintank_cassandra']['num_tokens'],
+    :cluster_name => node['chef_cassandra']['cluster_name'],
+    :num_tokens => node['chef_cassandra']['num_tokens'],
     :seeds => seeds,
-    :listen_interface => node['raintank_cassandra']['listen_interface'],
-    :rpc_address => node['raintank_cassandra']['rpc_address'],
-    :broadcast_rpc_address => node['raintank_cassandra']['broadcast_rpc_address'],
-    :snitch => node['raintank_cassandra']['snitch'],
-    :concurrent_reads => node['raintank_cassandra']['concurrent_reads'],
-    :concurrent_writes => node['raintank_cassandra']['concurrent_writes'],
+    :listen_interface => node['chef_cassandra']['listen_interface'],
+    :rpc_address => node['chef_cassandra']['rpc_address'],
+    :broadcast_rpc_address => node['chef_cassandra']['broadcast_rpc_address'],
+    :snitch => node['chef_cassandra']['snitch'],
+    :concurrent_reads => node['chef_cassandra']['concurrent_reads'],
+    :concurrent_writes => node['chef_cassandra']['concurrent_writes'],
     :auto_bootstrap => auto_bootstrap
   })
   notifies :restart, 'service[cassandra]', :immediately

@@ -81,7 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         server_debian_password: 'debpass',
         server_repl_password: 'replpass'
       },
-      raintank_cassandra: {
+      chef_cassandra: {
 	is_img_build: true
       }
     }
@@ -90,7 +90,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.data_bags_path = "../../raintank-chef/role-cookbooks/data_bags/"
 
     chef.run_list = [
-      'recipe[raintank_cassandra::default]'
+      'recipe[chef_cassandra::default]'
     ]
   end
 end

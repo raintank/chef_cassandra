@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: keyspace
 #
 # Copyright (C) 2016 Raintank, Inc.

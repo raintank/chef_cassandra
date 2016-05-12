@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: raintank_cassandra
+# Cookbook Name:: chef_cassandra
 # Recipe:: disks
 #
 # Copyright (C) 2016 Raintank, Inc.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-unless node[:raintank_base][:is_img_build]
+unless node[:chef_base][:is_img_build]
   include_recipe "lvm"
 end
 
@@ -46,9 +46,9 @@ directory "/var/lib/cassandra/commitlog" do
   action :create
 end
 
-unless node[:raintank_base][:is_img_build]
+unless node[:chef_base][:is_img_build]
   lvm_volume_group 'cassandra00' do
-    physical_volumes [ node['raintank_cassandra']['cassandra_disk'] ] 
+    physical_volumes [ node['chef_cassandra']['cassandra_disk'] ] 
 
     logical_volume 'cassandra' do
       size        '100%VG'
@@ -63,7 +63,7 @@ unless node[:raintank_base][:is_img_build]
     action [:mount,:enable]
   end
   lvm_volume_group 'cassandra01' do
-    physical_volumes [ node['raintank_cassandra']['cassandra_commit_disk'] ]
+    physical_volumes [ node['chef_cassandra']['cassandra_commit_disk'] ]
     logical_volume 'cassandra-commit' do
       size '100%VG'
       filesystem 'ext4'
