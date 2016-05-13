@@ -62,6 +62,12 @@ unless node[:chef_base][:is_img_build]
     options 'noatime,nodiratime'
     action [:mount,:enable]
   end
+  directory "/var/lib/cassandra" do
+    owner "cassandra"
+    group "cassandra"
+    mode "0755"
+    action :create
+  end
   lvm_volume_group 'cassandra01' do
     physical_volumes [ node['chef_cassandra']['cassandra_commit_disk'] ]
     logical_volume 'cassandra-commit' do
@@ -69,6 +75,12 @@ unless node[:chef_base][:is_img_build]
       filesystem 'ext4'
       stripes 1
     end
+  end
+  directory "/var/lib/cassandra/commitlog" do
+    owner "cassandra"
+    group "cassandra"
+    mode "0755"
+    action :create
   end
   mount '/var/lib/cassandra/commitlog' do
     device '/dev/mapper/cassandra01-cassandra--commit'
