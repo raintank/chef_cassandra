@@ -52,5 +52,6 @@ bash 'init_cassandra_keyspace' do
     EOH
   action :nothing
   subscribes :run, 'cookbook_file[/tmp/cassandra_keyspace.cql]', :delayed
+  only_if { !node['chef_cassandra']['standalone'] }
 end
 

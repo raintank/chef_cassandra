@@ -11,6 +11,7 @@ default[:chef_cassandra][:search] = "tags:cassandra AND chef_environment:#{node.
 default[:chef_cassandra][:cassandra_disk] = "/dev/sdb"
 default[:chef_cassandra][:cassandra_commit_disk] = "/dev/sdc"
 default[:chef_cassandra][:cron_mailto] = "root@localhost"
+default[:chef_cassandra][:standalone] = false
 
 default[:java][:install_flavor] = "oracle"
 default[:java][:jdk_version] = "8"
