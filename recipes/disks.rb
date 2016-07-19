@@ -19,6 +19,7 @@
 
 unless node[:chef_base][:is_img_build]
   include_recipe "lvm"
+  include_recipe "chef_base::lvm_attrs"
 end
 
 group "cassandra" do
@@ -47,6 +48,11 @@ directory "/var/lib/cassandra/commitlog" do
 end
 
 unless node[:chef_base][:is_img_build]
+  # ruby lvm gem isn't able to understand the lvm2 version in xenial (??)
+  chef_gem 'di-ruby-lvm-attrib' do
+    compile_time true
+    action :install
+  end
   lvm_volume_group 'cassandra00' do
     physical_volumes [ node['chef_cassandra']['cassandra_disk'] ] 
 

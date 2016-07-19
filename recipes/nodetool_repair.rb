@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef_cassandra
-# Recipe:: default
+# Recipe:: nodetool_repair
 #
 # Copyright (C) 2016 Raintank, Inc.
 #
@@ -17,9 +17,11 @@
 # limitations under the License.
 #
 
-include_recipe "chef_base::default"
-include_recipe "chef_cassandra::disks"
-include_recipe "chef_cassandra::install"
-include_recipe "chef_cassandra::keyspace"
-include_recipe "chef_cassandra::snapshotter"
-include_recipe "chef_cassandra::nodetool_repair"
+cron "cassandra_nodetool_repair" do
+  action :create
+  minute '0'
+  hour '1'
+  user 'root'
+  mailto node['chef_cassandra']['cron_mailto']
+  command %Q( )
+end
