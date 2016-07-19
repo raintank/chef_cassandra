@@ -41,7 +41,7 @@ package 'dsc22' do
 end
 
 service 'cassandra' do
-  action [ :enable, :start ]
+  action :nothing
 end
 
 seeds = if Chef::Config[:solo]
@@ -72,6 +72,10 @@ template "/etc/cassandra/cassandra.yaml" do
     :auto_bootstrap => auto_bootstrap
   })
   notifies :restart, 'service[cassandra]', :immediately
+end
+
+service 'cassandra' do
+  action [ :enable, :start ]
 end
 
 include_recipe "logrotate"
