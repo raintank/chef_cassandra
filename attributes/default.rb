@@ -12,6 +12,8 @@ default[:chef_cassandra][:cassandra_disk] = "/dev/sdb"
 default[:chef_cassandra][:cassandra_commit_disk] = "/dev/sdc"
 default[:chef_cassandra][:cron_mailto] = "root@localhost"
 default[:chef_cassandra][:standalone] = false
+default[:chef_cassandra][:version] = "3.0.8"
+default[:chef_cassandra][:dsc_version] = "3.0.8-1"
 
 default[:java][:install_flavor] = "oracle"
 default[:java][:jdk_version] = "8"

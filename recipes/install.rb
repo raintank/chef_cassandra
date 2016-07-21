@@ -28,15 +28,15 @@ apt_repository 'cassandra' do
 end
 
 package 'cassandra' do
-  version '3.0.8'
+  version node['chef_cassandra']['version']
   action :install
 end
 package 'cassandra-tools' do
-  version '3.0.8'
+  version node['chef_cassandra']['version']
   action :install
 end
 package 'dsc30' do
-  version '3.0.8-1'
+  version node['chef_cassandra']['dsc_version']
   action :install
 end
 
