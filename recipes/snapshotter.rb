@@ -35,9 +35,6 @@ unless node[:chef_base][:is_img_build]
   end
 end
 
-package 'python-pip'
-package 'python-dev'
-
 bash 'install_cassandra_snapshotter' do
   cwd "/tmp"
   code "pip install pip==7.1.2; pip install cassandra_snapshotter"

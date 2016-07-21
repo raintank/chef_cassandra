@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: chef_cassandra
-# Recipe:: default
+# Recipe:: python_prep
 #
 # Copyright (C) 2016 Raintank, Inc.
 #
@@ -17,11 +17,8 @@
 # limitations under the License.
 #
 
-include_recipe "chef_base::default"
-include_recipe "chef_cassandra::python_prep"
-include_recipe "chef_cassandra::disks"
-include_recipe "chef_cassandra::install"
-include_recipe "chef_cassandra::keyspace"
-include_recipe "chef_cassandra::snapshotter"
-include_recipe "chef_cassandra::nodetool_repair"
-include_recipe "chef_cassandra::collectd"
+# More than one cookbook needs pip and friends installed, so set that up here
+# before anything else runs (after the basic setup).
+
+package 'python-pip'
+package 'python-dev'

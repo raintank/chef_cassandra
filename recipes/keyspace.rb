@@ -22,6 +22,11 @@ cookbook_file '/tmp/cassandra_keyspace.cql' do
   action :create
 end
 
+# Don't use bundled cqlsh on ubuntu 16.04 (at the very least)
+if node["platform"] == "ubuntu" && node["platform_version"].to_f >= 16.04
+  ENV['CQLSH_NO_BUNDLED'] = "TRUE"
+end
+
 # set up kairosdb schema when cassandra starts.
 bash 'init_cassandra_keyspace' do
   cwd "/tmp"

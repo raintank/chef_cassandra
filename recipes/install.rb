@@ -87,4 +87,17 @@ logrotate_app "cassandra" do
   enable false
 end
 
+if node["platform"] == "ubuntu" && node["platform_version"].to_f >= 16.04
+  bash 'install_cassandra_driver' do
+    cwd '/tmp'
+    code "pip install cassandra-driver"
+  end
+  file "/etc/profile.d/Z99-csqlsh.sh" do
+    mode "0644"
+    owner "root"
+    group "root"
+    content "export CQLSH_NO_BUNDLED=TRUE\n"
+  end
+end
+
 tag("cassandra")
