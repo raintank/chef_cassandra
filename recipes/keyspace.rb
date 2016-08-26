@@ -28,8 +28,10 @@ if node["platform"] == "ubuntu" && node["platform_version"].to_f >= 16.04
 end
 
 # set up kairosdb schema when cassandra starts.
+cqlsh_host = node[:network][:interfaces][node[:chef_cassandra][:listen_interface]][:addresses].detect{|k,v| v[:family] == "inet" }.first
 bash 'init_cassandra_keyspace' do
   cwd "/tmp"
+  environment 'CQLSH_HOST' => cqlsh_host
   code <<-EOH
     echo "grep for cassandra"
     ps ax | grep cassandra | grep java

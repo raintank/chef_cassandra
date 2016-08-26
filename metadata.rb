@@ -4,7 +4,7 @@ maintainer_email 'cookbooks@raintank.io'
 license          'Apache 2.0'
 description      'Installs/Configures chef_cassandra'
 long_description 'Installs/Configures chef_cassandra'
-version          '0.1.3'
+version          '0.1.4'
 
 depends 'apt', '~> 2.7.0'
 depends 'java', '~> 1.31.0'
