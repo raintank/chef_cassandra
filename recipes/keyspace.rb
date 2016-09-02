@@ -27,8 +27,13 @@ if node["platform"] == "ubuntu" && node["platform_version"].to_f >= 16.04
   ENV['CQLSH_NO_BUNDLED'] = "TRUE"
 end
 
-# set up kairosdb schema when cassandra starts.
-cqlsh_host = node[:network][:interfaces][node[:chef_cassandra][:listen_interface]][:addresses].detect{|k,v| v[:family] == "inet" }.first
+# set up metrictank schema when cassandra starts.
+cqlsh_host = if node[:network][:interfaces][node[:chef_cassandra][:listen_interface]]
+  [:addresses].detect{|k,v| v[:family] == "inet" }.first
+else
+  "localhost"
+end
+
 bash 'init_cassandra_keyspace' do
   cwd "/tmp"
   environment 'CQLSH_HOST' => cqlsh_host
