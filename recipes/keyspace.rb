@@ -29,7 +29,7 @@ end
 
 # set up metrictank schema when cassandra starts.
 cqlsh_host = if node[:network][:interfaces][node[:chef_cassandra][:listen_interface]]
-  [:addresses].detect{|k,v| v[:family] == "inet" }.first
+  node[:network][:interfaces][node[:chef_cassandra][:listen_interface]][:addresses].detect{|k,v| v[:family] == "inet" }.first
 else
   "localhost"
 end
